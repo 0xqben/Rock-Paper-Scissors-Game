@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{01320356-080e-4b91-835e-5c083a6fe673}</ProjectGuid>
+    <ProjectGuid>{01320356-080E-4B91-835E-5C083A6FE673}</ProjectGuid>
     <RootNamespace>RockPaperScissorsGame</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>

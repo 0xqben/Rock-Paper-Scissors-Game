@@ -12,6 +12,12 @@ enum enRockPaperScissors
     Scissors=3,
 };
 
+struct stResults
+{
+    int PlayerWinRounds;
+    int CompWinRounds;
+};
+
 int RandomNumber(int From, int To) {
     int randNum = rand() % (To - From + 1) + From;
     return randNum;
@@ -28,6 +34,7 @@ enRockPaperScissors RandomChoice() {
         return enRockPaperScissors::Scissors;
     }
 }
+
 void TestRandomChoice() {
     for (int i = 0; i <= 20; i++)
     {
@@ -45,11 +52,21 @@ void TestRandomChoice() {
     }
 }
 
+int ReadRounds(string Message) {
+    int Rounds;
+    do
+    {
+        cout << Message << endl;
+        cin >> Rounds;
+    } while (Rounds < 0 && Rounds > 10);
+    return Rounds;
+}
+
 int main()
 {
     srand((unsigned)time(NULL));
 
-    TestRandomChoice();
-
-
+    
+    
+    return 0;
 }
