@@ -62,6 +62,25 @@ int ReadRounds(string Message) {
     return Rounds;
 }
 
+enRockPaperScissors ReadUserChoice(string Message) {
+    int Input = 0;
+    do
+    {
+        cout << Message << endl;
+        cin >> Input;
+    } while (Input > 3 || Input < 1);
+
+    switch (Input) {
+    case 1 : 
+        return enRockPaperScissors::Rock;
+    case 2 : 
+        return enRockPaperScissors::Paper;
+    case 3 : 
+        return enRockPaperScissors::Scissors;
+    }
+
+}
+
 int main()
 {
     srand((unsigned)time(NULL));
