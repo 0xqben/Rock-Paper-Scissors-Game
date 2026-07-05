@@ -3,5 +3,5 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Rock-Paper-Scissors Game.vcxproj" />
+  <Project Path="Rock-Paper-Scissors Game.vcxproj" Id="01320356-080e-4b91-835e-5c083a6fe673" />
 </Solution>

@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstdlib>
 
+using namespace std;
+
 enum enRockPaperScissors
 {
     Rock=1,
@@ -26,10 +28,28 @@ enRockPaperScissors RandomChoice() {
         return enRockPaperScissors::Scissors;
     }
 }
+void TestRandomChoice() {
+    for (int i = 0; i <= 20; i++)
+    {
+        switch (RandomChoice()) {
+        case enRockPaperScissors::Rock :
+            cout << "Random choice " << i << " is rock " << endl;
+            break;
+        case enRockPaperScissors::Paper :
+            cout << "Random choice " << i << " is paper " << endl;
+            break;
+        case enRockPaperScissors::Scissors :
+            cout << "Random choice " << i << " is scissors " << endl;
+            break;
+        }
+    }
+}
 
 int main()
 {
     srand((unsigned)time(NULL));
+
+    TestRandomChoice();
 
 
 }
