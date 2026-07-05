@@ -87,86 +87,137 @@ enRockPaperScissors ReadUserChoice(string Message) {
 
 stGameResults CheckWinner(enRockPaperScissors UserChoice, enRockPaperScissors CompChoice , stGameResults Result) {
 
-    switch (UserChoice) {
-    case enRockPaperScissors::Rock :
-        if (CompChoice == enRockPaperScissors::Paper)
-        {
+    if (UserChoice == CompChoice)
+    {
+        return Result;
+    }
+
+
+    switch (CompChoice) {
+
+    case enRockPaperScissors::Paper :
+        switch (UserChoice) {
+        case enRockPaperScissors::Rock:
             Result.CompWin = true;
-            
-            break;
-        }
-        else if (CompChoice == enRockPaperScissors::Scissors)
-        {
+            return Result;
+        case enRockPaperScissors::Scissors:
             Result.PlayerWin = true;
-            
-            break;
+            return Result;
         }
         break;
 
-    case enRockPaperScissors::Paper :
-        if (CompChoice == enRockPaperScissors::Scissors)
-        {
+    case enRockPaperScissors::Scissors : 
+        switch (UserChoice) {
+        case enRockPaperScissors::Paper:
             Result.CompWin = true;
-            
-            break;
-        }
-        else if (CompChoice == enRockPaperScissors::Rock)
-        {
+            return Result;
+        case enRockPaperScissors::Rock:
             Result.PlayerWin = true;
-            
-            break;
+            return Result;
         }
         break;
-    case enRockPaperScissors::Scissors :
-        if (CompChoice == enRockPaperScissors::Rock)
-        {
+
+
+    case enRockPaperScissors::Rock :
+        switch (UserChoice) {
+        case enRockPaperScissors::Scissors:
             Result.CompWin = true;
-            
-            break;
-        }
-        else if (CompChoice == enRockPaperScissors::Paper)
-        {
+            return Result;
+        case enRockPaperScissors::Paper:
             Result.PlayerWin = true;
-            break;
+            return Result;
         }
         break;
 
     }
-    return Result;
 }
 
 void ShowFinalGameResults(stGameResults GameResults , int Rounds) {
-    cout << "Game rounds " << Rounds << endl;
-    cout << "Player Won Times : " << GameResults.PlayerWinRounds << endl;
-    cout << "comp Won Times : " << GameResults.CompWinRounds << endl;
+    cout << "\n\n\t==================================\n\n";
+    cout << "\t\t G A M E  O V E R \n";
+    cout << "\n\n\t==================================\n\n";
+    cout << "\tGame rounds " << Rounds << endl;
+    cout << "\tPlayer Won Rounds : " << GameResults.PlayerWinRounds << endl;
+    cout << "\tcomp Won Rounds : " << GameResults.CompWinRounds << endl;
+    cout << "\tDraw Rounds: " << GameResults.DrawRounds << endl;
+
+    if (GameResults.CompWinRounds > GameResults.PlayerWinRounds)
+    {
+        cout << "\n\tFinal Winner is Computer \n";
+    }
+    else if (GameResults.PlayerWinRounds > GameResults.CompWinRounds)
+    {
+        cout << "\n\tFinal Winner is Player \n";
+    }
+    else
+    {
+        cout << "\n\tFinal Winner is None \n";
+    }
+    
+    cout << "\n\n\t==================================\n\n";
+}
+
+string ToStringResult(enRockPaperScissors Choice) {
+    switch (Choice) {
+    case enRockPaperScissors::Rock:
+        return "Rock";
+    case enRockPaperScissors::Paper:
+        return "Paper";
+    case enRockPaperScissors::Scissors:
+        return "Scissors";
+    }
+}
+
+void PrintResult(stGameResults Result, enRockPaperScissors UserChoice, enRockPaperScissors CompChoice) {
+    cout << "\n-------------------------------------------";
+    cout << "\nPlayer choice " << ToStringResult(UserChoice) << endl;
+    cout << "Comp Choice : " << ToStringResult(CompChoice) << endl;
+    if (Result.CompWin)
+    {
+        cout << "\n======\n";
+        cout << "The Winner is comp";
+        cout << "\n======\n";
+    }
+    else if (Result.PlayerWin)
+    {
+        cout << "\n======\n";
+        cout << "The Winner is player";
+        cout << "\n======\n";
+    }
+    else
+    {
+        cout << "\n======\n";
+        cout << "The Winner is None";
+        cout << "\n======\n";
+    }
+    
+    cout << "\ncomp score : " << Result.CompWinRounds << endl;
+    cout << "\nplayer score : " << Result.PlayerWinRounds << endl;
+    cout << "\n-------------------------------------------";
+}
+
+void ResetValues(stGameResults& Result) {
+    Result.CompWin = false;
+    Result.PlayerWin = false;
 }
 
 void PrintRoundResult(stGameResults& Result , enRockPaperScissors UserChoice , enRockPaperScissors CompChoice) {
     if (Result.CompWin)
     {
         Result.CompWinRounds++;
-        cout << "\nPlayer choice " << UserChoice << endl;
-        cout << "Comp Choice : " << CompChoice << endl;
-        cout << "\n==computer win : ==" << endl;
-        cout << "\ncomp score : " << Result.CompWinRounds << endl;
-        cout << "\nplayer score : " << Result.PlayerWinRounds << endl;
+        PrintResult(Result,UserChoice,CompChoice);
+        ResetValues(Result);
     }
     else if (Result.PlayerWin)
     {
         Result.PlayerWinRounds++;
-        cout << "\nPlayer choice " << UserChoice << endl;
-        cout << "Comp Choice : " << CompChoice << endl;
-        cout << "\n===Player win : ===" << endl;
-        cout << "\ncomp score : " << Result.CompWinRounds << endl;
-        cout << "\nplayer score : " << Result.PlayerWinRounds << endl;
+        PrintResult(Result, UserChoice, CompChoice);
+        ResetValues(Result);
     }
     else {
         Result.DrawRounds++;
-        cout << "\nPlayer choice " << UserChoice << endl;
-        cout << "Comp Choice : " << CompChoice << endl;
-        cout << "\n===Draw===" << endl;
-        cout << "\ncomp score : " << Result.CompWinRounds << endl;
-        cout << "\nplayer score : " << Result.PlayerWinRounds << endl;
+        PrintResult(Result, UserChoice, CompChoice);
+        ResetValues(Result);
     }
 }
 
@@ -174,11 +225,13 @@ void StartRound(int Rounds , stGameResults& Result) {
     enRockPaperScissors UserChoice, CompChoice;
     for (int i = 1; i <= Rounds; i++)
     {
+        
         cout << "\n\nRound " << i << " Begins : " << endl;
         UserChoice = ReadUserChoice("Your choice : [1] : Rock, [2] : Paper, [3] : Scissors ? ");
         CompChoice = RandomChoice();
-        Result = CheckWinner(UserChoice, CompChoice , Result);
+        Result = CheckWinner(UserChoice, CompChoice, Result);
         PrintRoundResult(Result , UserChoice , CompChoice);
+        
     }
 }
 
