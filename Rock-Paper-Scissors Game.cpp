@@ -243,10 +243,24 @@ void StartRound(int Rounds , stGameResults& Result) {
 }
 
 bool TryAgain() {
-    bool TryAgain;
-    cout << "\nTry Again ? " << endl;
+    int TryAgain;
+    cout << "\nTry Again ? Yes[1] , No[0]" << endl;
     cin >> TryAgain;
-    return TryAgain;
+
+    if (TryAgain == 1)
+    {
+        system("cls");
+        system("COLOR 07");
+        return TryAgain;
+    }
+    else
+    {
+        
+        system("cls");
+        
+
+        return false;
+    }
 }
 
 void StartGame() {
