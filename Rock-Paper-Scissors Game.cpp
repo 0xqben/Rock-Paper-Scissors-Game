@@ -12,8 +12,11 @@ enum enRockPaperScissors
     Scissors=3,
 };
 
-struct stResults
+struct stGameResults
 {
+    bool PlayerWin = false;
+    bool CompWin = false;
+    
     int PlayerWinRounds;
     int CompWinRounds;
 };
@@ -81,10 +84,117 @@ enRockPaperScissors ReadUserChoice(string Message) {
 
 }
 
+stGameResults CheckWinner(enRockPaperScissors UserChoice, enRockPaperScissors CompChoice) {
+    stGameResults Result;
+    Result.CompWinRounds = 0;
+    Result.PlayerWinRounds = 0;
+    switch (UserChoice) {
+    case enRockPaperScissors::Rock :
+        if (CompChoice == enRockPaperScissors::Paper)
+        {
+            Result.CompWin = true;
+            Result.CompWinRounds++;
+            break;
+        }
+        else if (CompChoice == enRockPaperScissors::Scissors)
+        {
+            Result.PlayerWin = true;
+            Result.PlayerWinRounds++;
+            break;
+        }
+        break;
+
+    case enRockPaperScissors::Paper :
+        if (CompChoice == enRockPaperScissors::Scissors)
+        {
+            Result.CompWin = true;
+            Result.CompWinRounds++;
+            break;
+        }
+        else if (CompChoice == enRockPaperScissors::Rock)
+        {
+            Result.PlayerWin = true;
+            Result.PlayerWinRounds++;
+            break;
+        }
+        break;
+    case enRockPaperScissors::Scissors :
+        if (CompChoice == enRockPaperScissors::Rock)
+        {
+            Result.CompWin = true;
+            Result.CompWinRounds++;
+            break;
+        }
+        else if (CompChoice == enRockPaperScissors::Paper)
+        {
+            Result.PlayerWin = true;
+            Result.PlayerWinRounds++;
+            break;
+        }
+        break;
+
+    }
+    return Result;
+}
+
+void ShowFinalGameResults(stGameResults GameResults) {
+    cout << "Player Won Times : " << GameResults.PlayerWinRounds << endl;
+    cout << "comp Won Times : " << GameResults.CompWinRounds << endl;
+}
+
+void PrintRoundResult(stGameResults Result) {
+    if (Result.CompWin)
+    {
+        cout << "computer win : " << endl;
+    }
+    else if (Result.PlayerWin)
+    {
+        cout << "Player win : " << endl;
+    }
+    else {
+        cout << "Draw" << endl;
+    }
+}
+
+void StartRound(int Rounds , stGameResults Result) {
+    
+    enRockPaperScissors UserChoice, CompChoice;
+    for (int i = 0; i < Rounds; i++)
+    {
+        cout << "Round " << i << " Begins : " << endl;
+        UserChoice = ReadUserChoice("Your choice : [1] : Rock, [2] : Paper, [3] : Scissors ? ");
+        CompChoice = RandomChoice();
+        PrintRoundResult(CheckWinner(UserChoice, CompChoice));
+    }
+
+
+}
+
+bool TryAgain() {
+    bool TryAgain;
+    cout << "Try Again ? " << endl;
+    cin >> TryAgain;
+    return TryAgain;
+}
+
+void StartGame() {
+    int Rounds;
+    bool PlayAgain;
+    do
+    {
+        Rounds = ReadRounds("How Many Rounds ? From 1 to 10  ? ");
+        stGameResults GameResult;
+        StartRound(Rounds, GameResult);
+        ShowFinalGameResults(GameResult);
+        PlayAgain = TryAgain();
+    } while (PlayAgain);
+}
+
 int main()
 {
     srand((unsigned)time(NULL));
 
+    StartGame();
     
     
     return 0;
