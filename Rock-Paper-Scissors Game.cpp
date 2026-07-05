@@ -255,7 +255,7 @@ bool TryAgain() {
     }
     else
     {
-        
+        system("COLOR 07");
         system("cls");
         
 
