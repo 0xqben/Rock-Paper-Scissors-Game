@@ -174,21 +174,28 @@ void PrintResult(stGameResults Result, enRockPaperScissors UserChoice, enRockPap
     cout << "Comp Choice : " << ToStringResult(CompChoice) << endl;
     if (Result.CompWin)
     {
+        cout << "\a";
         cout << "\n======\n";
         cout << "The Winner is comp";
         cout << "\n======\n";
+        system("COLOR 4F");
+
     }
     else if (Result.PlayerWin)
     {
         cout << "\n======\n";
         cout << "The Winner is player";
         cout << "\n======\n";
+        system("COLOR 2F");
+
     }
     else
     {
         cout << "\n======\n";
         cout << "The Winner is None";
         cout << "\n======\n";
+        system("COLOR 6F");
+
     }
     
     cout << "\ncomp score : " << Result.CompWinRounds << endl;
