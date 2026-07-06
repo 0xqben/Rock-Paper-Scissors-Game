@@ -224,6 +224,23 @@ enWinner WhoWonTheGame(int PlayerWinTimes, int ComputerWinTimes) {
     }
 }
 
+
+
+stGameResults FillGameResults(int GameRounds, int PlayerWinTimes, int ComputerWinTimes, int DrawTimes) {
+    stGameResults GameResults;
+
+    GameResults.GameRounds = GameRounds;
+    GameResults.PlayerWinRounds = PlayerWinTimes;
+    GameResults.CompWinRounds = ComputerWinTimes;
+    GameResults.DrawRounds = DrawTimes;
+
+    GameResults.GameWinner; // WhoWonTheGame()
+    GameResults.WinnerName;// WinnerName(GameResults.WinnerName);
+
+
+    return GameResults;
+}
+
 enWinner WhoWonTheRound(stRoundInfo RoundInfo) {
     if (RoundInfo.PlayerChoice == RoundInfo.ComputerChoice)
     {
