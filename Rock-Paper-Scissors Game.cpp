@@ -209,6 +209,21 @@ void ResetValues(stGameResults& Result) {
     Result.PlayerWin = false;
 }
 
+enWinner WhoWonTheGame(int PlayerWinTimes, int ComputerWinTimes) {
+    if (PlayerWinTimes > ComputerWinTimes)
+    {
+        return enWinner::Player;
+    }
+    else if (ComputerWinTimes > PlayerWinTimes)
+    {
+        return enWinner::Computer;
+    }
+    else
+    {
+        return enWinner::Draw;
+    }
+}
+
 enWinner WhoWonTheRound(stRoundInfo RoundInfo) {
     if (RoundInfo.PlayerChoice == RoundInfo.ComputerChoice)
     {
