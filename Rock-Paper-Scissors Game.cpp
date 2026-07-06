@@ -287,7 +287,7 @@ void SetWinnerScreenColor(enWinner Winner) {
     }
 }
 
-stGameResults PlayGame(int Rounds , stGameResults& Result) {
+stGameResults PlayGame(int Rounds) {
     stRoundInfo RoundInfo;
     short PlayerWinTimes = 0, ComputerWinTimes = 0, DrawTimes = 0;
 
@@ -347,7 +347,6 @@ void ResestScreen() {
      system("COLOR 0F");
 }
 
-
 string Tabs(short NumberOfTabs) {
     string t = "";
     for (int  i = 1; i < NumberOfTabs; i++)
@@ -365,20 +364,21 @@ void ShowGameOverScreen() {
 }
 
 void StartGame() {
-    int Rounds;
-    bool PlayAgain = false;
+    int HowManyRounds;
+    char PlayAgain = 'y';
     do
     {
-        Rounds = ReadRounds("How Many Rounds ? From 1 to 10  ? \n");
-        stGameResults GameResult;
-        GameResult.CompWinRounds = 0;
-        GameResult.PlayerWinRounds = 0;
-        GameResult.DrawRounds = 0;
-
-        PlayGame(Rounds, GameResult);
+        ResestScreen();
+        HowManyRounds = ReadRounds("How Many Rounds ? From 1 to 10  ? \n");
+        stGameResults GameResult = PlayGame(HowManyRounds);
+        ShowGameOverScreen();
         ShowFinalGameResults(GameResult);
-        PlayAgain = TryAgain();
-    } while (PlayAgain);
+        
+        cout << endl << Tabs(3) << "Do You want to play again ? Y/N ?" << endl;
+        cin >> PlayAgain;
+
+    } while (PlayAgain == 'Y' || PlayAgain == 'y');
+
 }
 
 int main()
