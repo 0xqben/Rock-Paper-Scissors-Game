@@ -366,6 +366,12 @@ string Tabs(short NumberOfTabs) {
     return t;
 }
 
+void ShowGameOverScreen() {
+    cout << Tabs(2) << "___________________________________________\n\n";
+    cout << Tabs(2) << "          +++ G a m e  O v e r +++\n";
+    cout << Tabs(2) << "___________________________________________\n\n";
+}
+
 void StartGame() {
     int Rounds;
     bool PlayAgain = false;
