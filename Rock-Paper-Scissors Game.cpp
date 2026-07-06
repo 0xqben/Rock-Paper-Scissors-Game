@@ -342,6 +342,12 @@ bool TryAgain() {
     }
 }
 
+void ResestScreen() {
+     system("cls");
+     system("COLOR 0F");
+}
+
+
 string Tabs(short NumberOfTabs) {
     string t = "";
     for (int  i = 1; i < NumberOfTabs; i++)
