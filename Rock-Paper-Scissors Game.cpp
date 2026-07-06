@@ -46,15 +46,8 @@ int RandomNumber(int From, int To) {
 }
 
 enGameChoice RandomChoice() {
-    int RandomChoice = RandomNumber(1, 3);
-    switch (RandomChoice) {
-    case 1 : 
-        return enGameChoice::Rock;
-    case 2 : 
-        return enGameChoice::Paper;
-    case 3 : 
-        return enGameChoice::Scissors;
-    }
+    return (enGameChoice)RandomNumber(1, 3);
+    
 }
 
 void TestRandomChoice() {
@@ -93,7 +86,7 @@ enGameChoice ReadUserChoice(string Message) {
     } while (Input > 3 || Input < 1);
 
     return (enGameChoice)Input;
-
+    // Refactored
 }
 
 stGameResults CheckWinner(enGameChoice UserChoice, enGameChoice CompChoice , stGameResults Result) {
