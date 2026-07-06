@@ -356,6 +356,16 @@ bool TryAgain() {
     }
 }
 
+string Tabs(short NumberOfTabs) {
+    string t = "";
+    for (int  i = 1; i < NumberOfTabs; i++)
+    {
+        t += "\t";
+        cout << t;
+    }
+    return t;
+}
+
 void StartGame() {
     int Rounds;
     bool PlayAgain = false;
