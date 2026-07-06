@@ -244,24 +244,14 @@ string WinnerName(enWinner Winner) {
     return arrWinnerName[Winner - 1];
 }
 
-void PrintRoundResult(stGameResults& Result , enGameChoice UserChoice , enGameChoice CompChoice) {
-    if (Result.CompWin)
-    {
-        Result.CompWinRounds++;
-        PrintResult(Result,UserChoice,CompChoice);
-        ResetValues(Result);
-    }
-    else if (Result.PlayerWin)
-    {
-        Result.PlayerWinRounds++;
-        PrintResult(Result, UserChoice, CompChoice);
-        ResetValues(Result);
-    }
-    else {
-        Result.DrawRounds++;
-        PrintResult(Result, UserChoice, CompChoice);
-        ResetValues(Result);
-    }
+void PrintRoundResult(stRoundInfo RoundInfo) {
+    cout << "\n________Round [" << RoundInfo.RoundNumber << "] _________\n\n";
+    cout << "Player choice : " << ChoiceName(RoundInfo.PlayerChoice) << endl;
+    cout << "Computer choice : " << ChoiceName(RoundInfo.ComputerChoice) << endl;
+    cout << "Round Winner : " << RoundInfo.WinnerName << endl;
+    cout << "_______________\n " << endl;
+
+    SetWinnerScreenColor(RoundInfo.Winner);
 }
 
 void SetWinnerScreenColor(enWinner Winner) {
