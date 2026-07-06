@@ -164,21 +164,15 @@ void ShowFinalGameResults(stGameResults GameResults , int Rounds) {
     cout << "\n\n\t==================================\n\n";
 }
 
-string ToStringResult(enGameChoice Choice) {
-    switch (Choice) {
-    case enGameChoice::Rock:
-        return "Rock";
-    case enGameChoice::Paper:
-        return "Paper";
-    case enGameChoice::Scissors:
-        return "Scissors";
-    }
+string ChoiceName(enGameChoice Choice) {
+    string arrGameChoice[3] = { "Rock","Paper","Scissors" };
+    return arrGameChoice[Choice - 1];
 }
 
 void PrintResult(stGameResults Result, enGameChoice UserChoice, enGameChoice CompChoice) {
     cout << "\n-------------------------------------------";
-    cout << "\nPlayer choice " << ToStringResult(UserChoice) << endl;
-    cout << "Comp Choice : " << ToStringResult(CompChoice) << endl;
+    cout << "\nPlayer choice " << ChoiceName(UserChoice) << endl;
+    cout << "Comp Choice : " << ChoiceName(CompChoice) << endl;
     if (Result.CompWin)
     {
         cout << "\a";
