@@ -245,6 +245,11 @@ enWinner WhoWonTheRound(stRoundInfo RoundInfo) {
     return enWinner::Player;
 }
 
+string WinnerName(enWinner Winner) {
+    string arrWinnerName[3] = { "Player","Computer","No Winner" };
+    return arrWinnerName[Winner - 1];
+}
+
 void PrintRoundResult(stGameResults& Result , enGameChoice UserChoice , enGameChoice CompChoice) {
     if (Result.CompWin)
     {
