@@ -11,11 +11,12 @@ enum enGameChoice
     Paper=2,
     Scissors=3,
 };
+// Hasn't Changed
 enum enWinner
 {
     Player = 1 , Computer = 2, Draw = 3
 };
-
+// New
 struct stGameResults
 {
     int GameRounds = 0;
@@ -30,7 +31,7 @@ struct stGameResults
     string WinnerName = "";
     
 };
-
+// To Be Changed
 struct stRoundInfo
 {
     short RoundNumber = 0;
@@ -40,18 +41,17 @@ struct stRoundInfo
     string WinnerName;
     
 };
-
+// New
 int RandomNumber(int From, int To) {
     int randNum = rand() % (To - From + 1) + From;
     return randNum;
 }
-
+// Hasn't Changed
 enGameChoice GetComputerChoice() {
     return (enGameChoice)RandomNumber(1, 3);
     
 }
 // Refactored
-
 void TestRandomChoice() {
     for (int i = 0; i <= 20; i++)
     {
@@ -68,7 +68,7 @@ void TestRandomChoice() {
         }
     }
 }
-
+// To Be Removed
 int ReadRounds(string Message) {
     int Rounds;
     do
@@ -78,7 +78,7 @@ int ReadRounds(string Message) {
     } while (Rounds < 0 && Rounds > 10);
     return Rounds;
 }
-
+// Hasn't Changed
 enGameChoice ReadUserChoice(string Message) {
     int Input = 0;
     do
@@ -91,7 +91,6 @@ enGameChoice ReadUserChoice(string Message) {
     
 }
 // Refactored
-
 string Tabs(short NumberOfTabs) {
     string t = "";
     for (int i = 1; i < NumberOfTabs; i++)
@@ -101,7 +100,7 @@ string Tabs(short NumberOfTabs) {
     }
     return t;
 }
-
+// New
 void SetWinnerScreenColor(enWinner Winner) {
     if (Winner == enWinner::Computer)
     {
@@ -117,7 +116,7 @@ void SetWinnerScreenColor(enWinner Winner) {
         system("COLOR 6F");
     }
 }
-
+// New
 stGameResults CheckWinner(enGameChoice UserChoice, enGameChoice CompChoice , stGameResults Result) {
 
     if (UserChoice == CompChoice)
@@ -164,7 +163,7 @@ stGameResults CheckWinner(enGameChoice UserChoice, enGameChoice CompChoice , stG
 
     }
 }
-
+// To Be Removed
 void ShowFinalGameResults(stGameResults GameResults) {
     cout<< Tabs(2) << "__________________[Game Results]_______________\n\n";
     cout<< Tabs(2) << "\tGame rounds " << GameResults.GameRounds << endl;
@@ -216,17 +215,17 @@ void PrintResult(stGameResults Result, enGameChoice UserChoice, enGameChoice Com
     cout << "\nplayer score : " << Result.PlayerWinRounds << endl;
     cout << "\n-------------------------------------------";
 }
-
+// To Be Removed
 string WinnerName(enWinner Winner) {
     string arrWinnerName[3] = { "Player","Computer","No Winner" };
     return arrWinnerName[Winner - 1];
 }
-
+// New
 void ResetValues(stGameResults& Result) {
     Result.CompWin = false;
     Result.PlayerWin = false;
 }
-
+// To Be Removed
 enWinner WhoWonTheGame(int PlayerWinTimes, int ComputerWinTimes) {
     if (PlayerWinTimes > ComputerWinTimes)
     {
@@ -241,7 +240,7 @@ enWinner WhoWonTheGame(int PlayerWinTimes, int ComputerWinTimes) {
         return enWinner::Draw;
     }
 }
-
+// New
 stGameResults FillGameResults(int GameRounds, int PlayerWinTimes, int ComputerWinTimes, int DrawTimes) {
     stGameResults GameResults;
 
@@ -256,7 +255,7 @@ stGameResults FillGameResults(int GameRounds, int PlayerWinTimes, int ComputerWi
 
     return GameResults;
 }
-
+// New
 enWinner WhoWonTheRound(stRoundInfo RoundInfo) {
     if (RoundInfo.PlayerChoice == RoundInfo.ComputerChoice)
     {
@@ -286,7 +285,7 @@ enWinner WhoWonTheRound(stRoundInfo RoundInfo) {
     // if you reach here then player is the winner
     return enWinner::Player;
 }
-
+// New
 void PrintRoundResult(stRoundInfo RoundInfo) {
     cout << "\n________Round [" << RoundInfo.RoundNumber << "] _________\n\n";
     cout << "Player choice : " << ChoiceName(RoundInfo.PlayerChoice) << endl;
@@ -330,7 +329,7 @@ stGameResults PlayGame(int Rounds) {
 
     return FillGameResults(Rounds, PlayerWinTimes, ComputerWinTimes, DrawTimes);
 }
-
+// Refactored
 bool TryAgain() {
     char TryAgain;
     cout << "\nTry Again ? Y/N" << endl;
@@ -351,18 +350,18 @@ bool TryAgain() {
         return false;
     }
 }
-
+// To Be Removed
 void ResestScreen() {
      system("cls");
      system("COLOR 0F");
 }
-
+// New 
 void ShowGameOverScreen() {
     cout << Tabs(2) << "___________________________________________\n\n";
     cout << Tabs(2) << "          +++ G a m e  O v e r +++\n";
     cout << Tabs(2) << "___________________________________________\n\n";
 }
-
+// New
 void StartGame() {
     int HowManyRounds;
     char PlayAgain = 'y';
@@ -380,7 +379,7 @@ void StartGame() {
     } while (PlayAgain == 'Y' || PlayAgain == 'y');
 
 }
-
+// Refactored
 int main()
 {
     srand((unsigned)time(NULL));
