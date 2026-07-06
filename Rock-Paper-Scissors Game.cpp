@@ -264,6 +264,21 @@ void PrintRoundResult(stGameResults& Result , enGameChoice UserChoice , enGameCh
     }
 }
 
+void SetWinnerScreenColor(enWinner Winner) {
+    if (Winner == enWinner::Computer)
+    {
+        system("COLOR 4F");
+    }
+    else if (Winner == enWinner::Player)
+    {
+        system("COLOR 2F");
+    }
+    else
+    {
+        system("COLOR 6F");
+    }
+}
+
 void StartRound(int Rounds , stGameResults& Result) {
     enGameChoice UserChoice, CompChoice;
     for (int i = 1; i <= Rounds; i++)
