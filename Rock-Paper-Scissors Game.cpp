@@ -45,15 +45,16 @@ int RandomNumber(int From, int To) {
     return randNum;
 }
 
-enGameChoice RandomChoice() {
+enGameChoice GetComputerChoice() {
     return (enGameChoice)RandomNumber(1, 3);
     
 }
+// Refactored
 
 void TestRandomChoice() {
     for (int i = 0; i <= 20; i++)
     {
-        switch (RandomChoice()) {
+        switch (GetComputerChoice()) {
         case enGameChoice::Rock :
             cout << "Random choice " << i << " is rock " << endl;
             break;
@@ -86,8 +87,9 @@ enGameChoice ReadUserChoice(string Message) {
     } while (Input > 3 || Input < 1);
 
     return (enGameChoice)Input;
-    // Refactored
+    
 }
+// Refactored
 
 stGameResults CheckWinner(enGameChoice UserChoice, enGameChoice CompChoice , stGameResults Result) {
 
@@ -239,7 +241,7 @@ void StartRound(int Rounds , stGameResults& Result) {
         
         cout << "\n\nRound " << i << " Begins : " << endl;
         UserChoice = ReadUserChoice("Your choice : [1] : Rock, [2] : Paper, [3] : Scissors ? ");
-        CompChoice = RandomChoice();
+        CompChoice = GetComputerChoice();
         Result = CheckWinner(UserChoice, CompChoice, Result);
         PrintRoundResult(Result , UserChoice , CompChoice);
         
