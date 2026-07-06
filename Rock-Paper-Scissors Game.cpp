@@ -92,6 +92,32 @@ enGameChoice ReadUserChoice(string Message) {
 }
 // Refactored
 
+string Tabs(short NumberOfTabs) {
+    string t = "";
+    for (int i = 1; i < NumberOfTabs; i++)
+    {
+        t += "\t";
+        cout << t;
+    }
+    return t;
+}
+
+void SetWinnerScreenColor(enWinner Winner) {
+    if (Winner == enWinner::Computer)
+    {
+        system("COLOR 4F");
+        cout << "\a";
+    }
+    else if (Winner == enWinner::Player)
+    {
+        system("COLOR 2F");
+    }
+    else
+    {
+        system("COLOR 6F");
+    }
+}
+
 stGameResults CheckWinner(enGameChoice UserChoice, enGameChoice CompChoice , stGameResults Result) {
 
     if (UserChoice == CompChoice)
@@ -191,6 +217,11 @@ void PrintResult(stGameResults Result, enGameChoice UserChoice, enGameChoice Com
     cout << "\n-------------------------------------------";
 }
 
+string WinnerName(enWinner Winner) {
+    string arrWinnerName[3] = { "Player","Computer","No Winner" };
+    return arrWinnerName[Winner - 1];
+}
+
 void ResetValues(stGameResults& Result) {
     Result.CompWin = false;
     Result.PlayerWin = false;
@@ -219,8 +250,8 @@ stGameResults FillGameResults(int GameRounds, int PlayerWinTimes, int ComputerWi
     GameResults.CompWinRounds = ComputerWinTimes;
     GameResults.DrawRounds = DrawTimes;
 
-    GameResults.GameWinner; // WhoWonTheGame()
-    GameResults.WinnerName;// WinnerName(GameResults.WinnerName);
+    GameResults.GameWinner = WhoWonTheGame(PlayerWinTimes, ComputerWinTimes);
+    GameResults.WinnerName = WinnerName(GameResults.GameWinner);
 
 
     return GameResults;
@@ -256,11 +287,6 @@ enWinner WhoWonTheRound(stRoundInfo RoundInfo) {
     return enWinner::Player;
 }
 
-string WinnerName(enWinner Winner) {
-    string arrWinnerName[3] = { "Player","Computer","No Winner" };
-    return arrWinnerName[Winner - 1];
-}
-
 void PrintRoundResult(stRoundInfo RoundInfo) {
     cout << "\n________Round [" << RoundInfo.RoundNumber << "] _________\n\n";
     cout << "Player choice : " << ChoiceName(RoundInfo.PlayerChoice) << endl;
@@ -271,22 +297,6 @@ void PrintRoundResult(stRoundInfo RoundInfo) {
     SetWinnerScreenColor(RoundInfo.Winner);
 }
 // Refactored
-void SetWinnerScreenColor(enWinner Winner) {
-    if (Winner == enWinner::Computer)
-    {
-        system("COLOR 4F");
-        cout << "\a";
-    }
-    else if (Winner == enWinner::Player)
-    {
-        system("COLOR 2F");
-    }
-    else
-    {
-        system("COLOR 6F");
-    }
-}
-
 stGameResults PlayGame(int Rounds) {
     stRoundInfo RoundInfo;
     short PlayerWinTimes = 0, ComputerWinTimes = 0, DrawTimes = 0;
@@ -345,16 +355,6 @@ bool TryAgain() {
 void ResestScreen() {
      system("cls");
      system("COLOR 0F");
-}
-
-string Tabs(short NumberOfTabs) {
-    string t = "";
-    for (int  i = 1; i < NumberOfTabs; i++)
-    {
-        t += "\t";
-        cout << t;
-    }
-    return t;
 }
 
 void ShowGameOverScreen() {
