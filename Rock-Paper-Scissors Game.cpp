@@ -301,18 +301,38 @@ void SetWinnerScreenColor(enWinner Winner) {
     }
 }
 
-void StartRound(int Rounds , stGameResults& Result) {
+stGameResults PlayGame(int Rounds , stGameResults& Result) {
+    stRoundInfo RoundInfo;
+    short PlayerWinTimes = 0, ComputerWinTimes = 0, DrawTimes = 0;
+
     enGameChoice UserChoice, CompChoice;
-    for (int i = 1; i <= Rounds; i++)
+    for (int GameRound = 1; GameRound <= Rounds; GameRound++)
     {
-        
-        cout << "\n\nRound " << i << " Begins : " << endl;
-        UserChoice = ReadUserChoice("Your choice : [1] : Rock, [2] : Paper, [3] : Scissors ? ");
-        CompChoice = GetComputerChoice();
-        Result = CheckWinner(UserChoice, CompChoice, Result);
-        PrintRoundResult(Result , UserChoice , CompChoice);
-        
+
+        cout << "\n\nRound " << GameRound << " Begins : " << endl;
+        RoundInfo.RoundNumber = GameRound;
+        RoundInfo.PlayerChoice = ReadUserChoice("Your choice : [1] : Rock, [2] : Paper, [3] : Scissors ? ");
+        RoundInfo.ComputerChoice = GetComputerChoice();
+        RoundInfo.Winner = WhoWonTheRound(RoundInfo);
+        RoundInfo.WinnerName = WinnerName(RoundInfo.Winner);
+
+        if (RoundInfo.Winner == enWinner::Player)
+        {
+            PlayerWinTimes++;
+        }
+        else if (RoundInfo.Winner == enWinner::Computer)
+        {
+            ComputerWinTimes++;
+        }
+        else
+        {
+            DrawTimes++;
+        }
+
+        PrintRoundResult(RoundInfo); 
     }
+
+    return FillGameResults(Rounds, PlayerWinTimes, ComputerWinTimes, DrawTimes);
 }
 
 bool TryAgain() {
@@ -347,7 +367,7 @@ void StartGame() {
         GameResult.PlayerWinRounds = 0;
         GameResult.DrawRounds = 0;
 
-        StartRound(Rounds, GameResult);
+        PlayGame(Rounds, GameResult);
         ShowFinalGameResults(GameResult , Rounds);
         PlayAgain = TryAgain();
     } while (PlayAgain);
