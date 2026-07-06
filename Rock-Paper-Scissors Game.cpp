@@ -48,23 +48,6 @@ enGameChoice GetComputerChoice() {
     
 }
 // Refactored
-void TestRandomChoice() {
-    for (int i = 0; i <= 20; i++)
-    {
-        switch (GetComputerChoice()) {
-        case enGameChoice::Rock :
-            cout << "Random choice " << i << " is rock " << endl;
-            break;
-        case enGameChoice::Paper :
-            cout << "Random choice " << i << " is paper " << endl;
-            break;
-        case enGameChoice::Scissors :
-            cout << "Random choice " << i << " is scissors " << endl;
-            break;
-        }
-    }
-}
-// To Be Removed
 int ReadRounds(string Message) {
     int Rounds;
     do
@@ -113,53 +96,6 @@ void SetWinnerScreenColor(enWinner Winner) {
     }
 }
 // New
-stGameResults CheckWinner(enGameChoice UserChoice, enGameChoice CompChoice , stGameResults Result) {
-
-    if (UserChoice == CompChoice)
-    {
-        return Result;
-    }
-
-
-    switch (CompChoice) {
-
-    case enGameChoice::Paper :
-        switch (UserChoice) {
-        case enGameChoice::Rock:
-            Result.CompWin = true;
-            return Result;
-        case enGameChoice::Scissors:
-            Result.PlayerWin = true;
-            return Result;
-        }
-        break;
-
-    case enGameChoice::Scissors : 
-        switch (UserChoice) {
-        case enGameChoice::Paper:
-            Result.CompWin = true;
-            return Result;
-        case enGameChoice::Rock:
-            Result.PlayerWin = true;
-            return Result;
-        }
-        break;
-
-
-    case enGameChoice::Rock :
-        switch (UserChoice) {
-        case enGameChoice::Scissors:
-            Result.CompWin = true;
-            return Result;
-        case enGameChoice::Paper:
-            Result.PlayerWin = true;
-            return Result;
-        }
-        break;
-
-    }
-}
-// To Be Removed
 void ShowFinalGameResults(stGameResults GameResults) {
     cout<< Tabs(2) << "__________________[Game Results]_______________\n\n";
     cout<< Tabs(2) << "\tGame rounds " << GameResults.GameRounds << endl;
@@ -177,51 +113,11 @@ string ChoiceName(enGameChoice Choice) {
     return arrGameChoice[Choice - 1];
 }
 // Refactored
-void PrintResult(stGameResults Result, enGameChoice UserChoice, enGameChoice CompChoice) {
-    cout << "\n-------------------------------------------";
-    cout << "\nPlayer choice " << ChoiceName(UserChoice) << endl;
-    cout << "Comp Choice : " << ChoiceName(CompChoice) << endl;
-    if (Result.CompWin)
-    {
-        cout << "\a";
-        cout << "\n======\n";
-        cout << "The Winner is comp";
-        cout << "\n======\n";
-        system("COLOR 4F");
-
-    }
-    else if (Result.PlayerWin)
-    {
-        cout << "\n======\n";
-        cout << "The Winner is player";
-        cout << "\n======\n";
-        system("COLOR 2F");
-
-    }
-    else
-    {
-        cout << "\n======\n";
-        cout << "The Winner is None";
-        cout << "\n======\n";
-        system("COLOR 6F");
-
-    }
-    
-    cout << "\ncomp score : " << Result.CompWinRounds << endl;
-    cout << "\nplayer score : " << Result.PlayerWinRounds << endl;
-    cout << "\n-------------------------------------------";
-}
-// To Be Removed
 string WinnerName(enWinner Winner) {
     string arrWinnerName[3] = { "Player","Computer","No Winner" };
     return arrWinnerName[Winner - 1];
 }
 // New
-void ResetValues(stGameResults& Result) {
-    Result.CompWin = false;
-    Result.PlayerWin = false;
-}
-// To Be Removed
 enWinner WhoWonTheGame(int PlayerWinTimes, int ComputerWinTimes) {
     if (PlayerWinTimes > ComputerWinTimes)
     {
@@ -326,27 +222,6 @@ stGameResults PlayGame(int Rounds) {
     return FillGameResults(Rounds, PlayerWinTimes, ComputerWinTimes, DrawTimes);
 }
 // Refactored
-bool TryAgain() {
-    char TryAgain;
-    cout << "\nTry Again ? Y/N" << endl;
-    cin >> TryAgain;
-
-    if (TryAgain == 'y' || TryAgain == 'Y')
-    {
-        system("cls");
-        system("COLOR 07");
-        return true;
-    }
-    else
-    {
-        system("COLOR 07");
-        system("cls");
-        
-
-        return false;
-    }
-}
-// To Be Removed
 void ResestScreen() {
      system("cls");
      system("COLOR 0F");
