@@ -40,6 +40,7 @@ struct stRoundInfo
     string WinnerName;
     
 };
+
 int RandomNumber(int From, int To) {
     int randNum = rand() % (To - From + 1) + From;
     return randNum;
@@ -212,6 +213,36 @@ void PrintResult(stGameResults Result, enGameChoice UserChoice, enGameChoice Com
 void ResetValues(stGameResults& Result) {
     Result.CompWin = false;
     Result.PlayerWin = false;
+}
+
+enWinner WhoWonTheRound(stRoundInfo RoundInfo) {
+    if (RoundInfo.PlayerChoice == RoundInfo.ComputerChoice)
+    {
+        return enWinner::Draw;
+    }
+
+    switch (RoundInfo.PlayerChoice) {
+    case enGameChoice::Rock :
+        if (RoundInfo.ComputerChoice == enGameChoice::Paper)
+        {
+            return enWinner::Computer;
+        }
+        break;
+    case enGameChoice::Paper :
+        if (RoundInfo.ComputerChoice == enGameChoice::Scissors)
+        {
+            return enWinner::Computer;
+        }
+        break;
+    case enGameChoice::Scissors :
+        if (RoundInfo.ComputerChoice == enGameChoice::Rock)
+        {
+            return enWinner::Computer;
+        }
+        break;
+    }
+    // if you reach here then player is the winner
+    return enWinner::Player;
 }
 
 void PrintRoundResult(stGameResults& Result , enGameChoice UserChoice , enGameChoice CompChoice) {
