@@ -5,7 +5,7 @@
 
 using namespace std;
 
-enum enRockPaperScissors
+enum enGameChoice
 {
     Rock=1,
     Paper=2,
@@ -31,20 +31,29 @@ struct stGameResults
     
 };
 
+struct stRoundInfo
+{
+    short RoundNumber = 0;
+    enGameChoice PlayerChoice;
+    enGameChoice ComputerChoice;
+    enWinner Winner;
+    string WinnerName;
+    
+};
 int RandomNumber(int From, int To) {
     int randNum = rand() % (To - From + 1) + From;
     return randNum;
 }
 
-enRockPaperScissors RandomChoice() {
+enGameChoice RandomChoice() {
     int RandomChoice = RandomNumber(1, 3);
     switch (RandomChoice) {
     case 1 : 
-        return enRockPaperScissors::Rock;
+        return enGameChoice::Rock;
     case 2 : 
-        return enRockPaperScissors::Paper;
+        return enGameChoice::Paper;
     case 3 : 
-        return enRockPaperScissors::Scissors;
+        return enGameChoice::Scissors;
     }
 }
 
@@ -52,13 +61,13 @@ void TestRandomChoice() {
     for (int i = 0; i <= 20; i++)
     {
         switch (RandomChoice()) {
-        case enRockPaperScissors::Rock :
+        case enGameChoice::Rock :
             cout << "Random choice " << i << " is rock " << endl;
             break;
-        case enRockPaperScissors::Paper :
+        case enGameChoice::Paper :
             cout << "Random choice " << i << " is paper " << endl;
             break;
-        case enRockPaperScissors::Scissors :
+        case enGameChoice::Scissors :
             cout << "Random choice " << i << " is scissors " << endl;
             break;
         }
@@ -75,7 +84,7 @@ int ReadRounds(string Message) {
     return Rounds;
 }
 
-enRockPaperScissors ReadUserChoice(string Message) {
+enGameChoice ReadUserChoice(string Message) {
     int Input = 0;
     do
     {
@@ -85,16 +94,16 @@ enRockPaperScissors ReadUserChoice(string Message) {
 
     switch (Input) {
     case 1 : 
-        return enRockPaperScissors::Rock;
+        return enGameChoice::Rock;
     case 2 : 
-        return enRockPaperScissors::Paper;
+        return enGameChoice::Paper;
     case 3 : 
-        return enRockPaperScissors::Scissors;
+        return enGameChoice::Scissors;
     }
 
 }
 
-stGameResults CheckWinner(enRockPaperScissors UserChoice, enRockPaperScissors CompChoice , stGameResults Result) {
+stGameResults CheckWinner(enGameChoice UserChoice, enGameChoice CompChoice , stGameResults Result) {
 
     if (UserChoice == CompChoice)
     {
@@ -104,35 +113,35 @@ stGameResults CheckWinner(enRockPaperScissors UserChoice, enRockPaperScissors Co
 
     switch (CompChoice) {
 
-    case enRockPaperScissors::Paper :
+    case enGameChoice::Paper :
         switch (UserChoice) {
-        case enRockPaperScissors::Rock:
+        case enGameChoice::Rock:
             Result.CompWin = true;
             return Result;
-        case enRockPaperScissors::Scissors:
+        case enGameChoice::Scissors:
             Result.PlayerWin = true;
             return Result;
         }
         break;
 
-    case enRockPaperScissors::Scissors : 
+    case enGameChoice::Scissors : 
         switch (UserChoice) {
-        case enRockPaperScissors::Paper:
+        case enGameChoice::Paper:
             Result.CompWin = true;
             return Result;
-        case enRockPaperScissors::Rock:
+        case enGameChoice::Rock:
             Result.PlayerWin = true;
             return Result;
         }
         break;
 
 
-    case enRockPaperScissors::Rock :
+    case enGameChoice::Rock :
         switch (UserChoice) {
-        case enRockPaperScissors::Scissors:
+        case enGameChoice::Scissors:
             Result.CompWin = true;
             return Result;
-        case enRockPaperScissors::Paper:
+        case enGameChoice::Paper:
             Result.PlayerWin = true;
             return Result;
         }
@@ -166,18 +175,18 @@ void ShowFinalGameResults(stGameResults GameResults , int Rounds) {
     cout << "\n\n\t==================================\n\n";
 }
 
-string ToStringResult(enRockPaperScissors Choice) {
+string ToStringResult(enGameChoice Choice) {
     switch (Choice) {
-    case enRockPaperScissors::Rock:
+    case enGameChoice::Rock:
         return "Rock";
-    case enRockPaperScissors::Paper:
+    case enGameChoice::Paper:
         return "Paper";
-    case enRockPaperScissors::Scissors:
+    case enGameChoice::Scissors:
         return "Scissors";
     }
 }
 
-void PrintResult(stGameResults Result, enRockPaperScissors UserChoice, enRockPaperScissors CompChoice) {
+void PrintResult(stGameResults Result, enGameChoice UserChoice, enGameChoice CompChoice) {
     cout << "\n-------------------------------------------";
     cout << "\nPlayer choice " << ToStringResult(UserChoice) << endl;
     cout << "Comp Choice : " << ToStringResult(CompChoice) << endl;
@@ -217,7 +226,7 @@ void ResetValues(stGameResults& Result) {
     Result.PlayerWin = false;
 }
 
-void PrintRoundResult(stGameResults& Result , enRockPaperScissors UserChoice , enRockPaperScissors CompChoice) {
+void PrintRoundResult(stGameResults& Result , enGameChoice UserChoice , enGameChoice CompChoice) {
     if (Result.CompWin)
     {
         Result.CompWinRounds++;
@@ -238,7 +247,7 @@ void PrintRoundResult(stGameResults& Result , enRockPaperScissors UserChoice , e
 }
 
 void StartRound(int Rounds , stGameResults& Result) {
-    enRockPaperScissors UserChoice, CompChoice;
+    enGameChoice UserChoice, CompChoice;
     for (int i = 1; i <= Rounds; i++)
     {
         
