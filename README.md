@@ -16,7 +16,6 @@ This is a console-based Rock Paper Scissors game built in C++.
 
 - Enums
 - Structs
-- Pass-by-reference and pass-by-value
 - Function decomposition
 - Forward declarations
 - Input validation
