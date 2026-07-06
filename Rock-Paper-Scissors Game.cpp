@@ -22,6 +22,10 @@ struct stGameResults
     int PlayerWinRounds = 0;
     int CompWinRounds = 0;
     int DrawRounds =0;
+
+    bool CompWin = false;
+    bool PlayerWin = false;
+
     enWinner GameWinner;
     string WinnerName = "";
     
@@ -248,15 +252,15 @@ void StartRound(int Rounds , stGameResults& Result) {
 }
 
 bool TryAgain() {
-    int TryAgain;
-    cout << "\nTry Again ? Yes[1] , No[0]" << endl;
+    char TryAgain;
+    cout << "\nTry Again ? Y/N" << endl;
     cin >> TryAgain;
 
-    if (TryAgain == 1)
+    if (TryAgain == 'y' || TryAgain == 'Y')
     {
         system("cls");
         system("COLOR 07");
-        return TryAgain;
+        return true;
     }
     else
     {
@@ -270,7 +274,7 @@ bool TryAgain() {
 
 void StartGame() {
     int Rounds;
-    bool PlayAgain;
+    bool PlayAgain = false;
     do
     {
         Rounds = ReadRounds("How Many Rounds ? From 1 to 10  ? \n");
