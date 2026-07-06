@@ -168,7 +168,7 @@ string ChoiceName(enGameChoice Choice) {
     string arrGameChoice[3] = { "Rock","Paper","Scissors" };
     return arrGameChoice[Choice - 1];
 }
-
+// Refactored
 void PrintResult(stGameResults Result, enGameChoice UserChoice, enGameChoice CompChoice) {
     cout << "\n-------------------------------------------";
     cout << "\nPlayer choice " << ChoiceName(UserChoice) << endl;
@@ -268,7 +268,7 @@ void PrintRoundResult(stRoundInfo RoundInfo) {
 
     SetWinnerScreenColor(RoundInfo.Winner);
 }
-
+// Refactored
 void SetWinnerScreenColor(enWinner Winner) {
     if (Winner == enWinner::Computer)
     {
