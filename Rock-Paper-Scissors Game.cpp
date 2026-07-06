@@ -23,10 +23,6 @@ struct stGameResults
     int PlayerWinRounds = 0;
     int CompWinRounds = 0;
     int DrawRounds =0;
-
-    bool CompWin = false;
-    bool PlayerWin = false;
-
     enWinner GameWinner;
     string WinnerName = "";
     
