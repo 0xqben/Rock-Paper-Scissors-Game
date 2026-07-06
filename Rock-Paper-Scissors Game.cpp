@@ -92,14 +92,7 @@ enGameChoice ReadUserChoice(string Message) {
         cin >> Input;
     } while (Input > 3 || Input < 1);
 
-    switch (Input) {
-    case 1 : 
-        return enGameChoice::Rock;
-    case 2 : 
-        return enGameChoice::Paper;
-    case 3 : 
-        return enGameChoice::Scissors;
-    }
+    return (enGameChoice)Input;
 
 }
 
