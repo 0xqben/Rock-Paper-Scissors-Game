@@ -14,8 +14,6 @@ enum enRockPaperScissors
 
 struct stGameResults
 {
-    bool PlayerWin = false;
-    bool CompWin = false;
     
     int PlayerWinRounds;
     int CompWinRounds;
