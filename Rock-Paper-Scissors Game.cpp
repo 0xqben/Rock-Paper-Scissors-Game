@@ -11,13 +11,20 @@ enum enRockPaperScissors
     Paper=2,
     Scissors=3,
 };
+enum enWinner
+{
+    Player = 1 , Computer = 2, Draw = 3
+};
 
 struct stGameResults
 {
+    int GameRounds = 0;
+    int PlayerWinRounds = 0;
+    int CompWinRounds = 0;
+    int DrawRounds =0;
+    enWinner GameWinner;
+    string WinnerName = "";
     
-    int PlayerWinRounds;
-    int CompWinRounds;
-    int DrawRounds;
 };
 
 int RandomNumber(int From, int To) {
